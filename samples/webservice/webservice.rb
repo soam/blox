@@ -131,11 +131,5 @@ module WebServiceLanguage
   end
 end
 
-# dump the language into our namespace
+# dump the language into this namespace
 include WebServiceLanguage
-
-# eval the sample file
-filename = File.join(File.dirname(__FILE__), 'sample.rb')
-File.open(filename) { |f|
-  eval(f.read)
-}

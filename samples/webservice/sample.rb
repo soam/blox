@@ -1,3 +1,7 @@
+#!/usr/bin/ruby -w
+
+require 'webservice'
+
 server :port => 8000 do
 
   get '/' do
