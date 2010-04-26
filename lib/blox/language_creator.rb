@@ -60,15 +60,14 @@ EOF
   def create_context_accessor(target_module)
     # This puts the context in the instance of the class that the
     # language module is included into
-    func = <<EOF
-       def blox_get_context
-         if not defined? @blox_context
-            @blox_context = Context.new
-         end
-         @blox_context
-       end
-EOF
-    target_module.module_eval func
+    target_module.module_eval do
+      def blox_get_context
+        if not defined? @blox_context
+          @blox_context = Context.new
+        end
+        @blox_context
+      end
+    end
   end
 
   #
