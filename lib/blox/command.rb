@@ -14,7 +14,7 @@ class Command
   def check_args    
   end
 
-  def execute
+  def visit
     self
   end
 
@@ -25,7 +25,7 @@ class Command
   end
 
   def run
-    v = execute
+    v = visit
     notify_parent
     v
   end

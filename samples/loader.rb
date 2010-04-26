@@ -5,13 +5,13 @@ require 'blox'
 module TestCommands
 
   class Foo < Blox::Command
-    def execute
+    def visit
       puts "foo was run"
     end    
   end
 
   class Bar < Blox::BlockCommand
-    def execute
+    def visit
       puts "bar was run at #{@source_location}"
     end
 

@@ -24,13 +24,13 @@ module WebServiceCommands
       @opts[:Port] = @opts[:port]
     end
 
-    def execute_before_block
+    def visit_before_block
       @server = WEBrick::HTTPServer.new(@opts)
       @server.mount_proc('/', Proc.new { |req,resp| serve_proc(req,resp) })
       trap('QUIT') { @server.stop }
     end
 
-    def execute_after_block
+    def visit_after_block
       # all the get paths are set up; start the server
       puts "Starting server..."
       @server.start
@@ -67,7 +67,7 @@ module WebServiceCommands
   # version of the form input
   #
   class CleanedQuery < Blox::Command
-    def execute
+    def visit
       key = @args[0]
       input = context[:request].query[key]
       if input
@@ -82,7 +82,7 @@ module WebServiceCommands
   # Some simple form building commands
   # 
   class Form < Blox::BlockCommand
-    def execute_before_block
+    def visit_before_block
       @markup = "<form action='#{@args[0][:action]}' method='#{@args[0][:method]}'>"
     end
 
@@ -90,7 +90,7 @@ module WebServiceCommands
       @markup << child.markup
     end
 
-    def execute_after_block
+    def visit_after_block
       @markup << "</form>"
     end
   end

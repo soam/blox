@@ -9,10 +9,10 @@ class BlockCommand < Command
 
   attr_accessor :children
 
-  def execute_before_block
+  def visit_before_block
   end
 
-  def execute_after_block
+  def visit_after_block
     self
   end
 
@@ -27,10 +27,10 @@ class BlockCommand < Command
   end
 
   def run
-    execute
-    execute_before_block
+    visit
+    visit_before_block
     call_block
-    v = execute_after_block
+    v = visit_after_block
     notify_parent
     v
   end  
