@@ -5,9 +5,9 @@ A small framework for implementing Ruby DSLs.
 Ruby's syntax, dynamic nature and use of blocks makes it easy to
 create domain specific languages.
 
-Blox allows you to focus on implementing the functionality of your
-language, and takes care of the bookkeeping job of creating and
-walking abstract syntax trees.
+Blox takes this further by allowing you to focus on implementing the
+functionality of your language, and taking care of the bookkeeping job
+of creating and walking abstract syntax trees (ASTs).
 
 ## Usage
 
