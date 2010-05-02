@@ -24,12 +24,6 @@ class Command
     end
   end
 
-  def run
-    v = visit
-    notify_parent
-    v
-  end
-
   # allow command implementations to access the current context
   attr_accessor :context_proc
   def context

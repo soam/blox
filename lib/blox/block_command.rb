@@ -26,15 +26,6 @@ class BlockCommand < Command
     @children << child_command
   end
 
-  def run
-    visit
-    visit_before_block
-    call_block
-    v = visit_after_block
-    notify_parent
-    v
-  end  
-
 end
 
 end

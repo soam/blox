@@ -36,21 +36,33 @@ EOF
     target_module.module_eval func
   end
 
+  # run the command
+  def self.run_command(cmd)
+    v = cmd.visit
+    if cmd.is_a? BlockCommand
+      cmd.visit_before_block
+      cmd.call_block
+      v = cmd.visit_after_block
+    end
+    cmd.notify_parent
+    v
+  end
+
   #
   # Does most of the work of the command function
   # 
   def self.command_function_helper(context, location, command_class, args, &block)
-    command_obj = command_class.new(args, &block)
+    cmd = command_class.new(args, &block)
 
-    command_obj.parent = context.command_stack.last
-    command_obj.source_location = location
-    command_obj.context_proc = lambda { blox_get_context }
+    cmd.parent = context.command_stack.last
+    cmd.source_location = location
+    cmd.context_proc = lambda { blox_get_context }
 
-    context.command_stack.push(command_obj) if (command_obj.is_a? BlockCommand)
+    context.command_stack.push(cmd) if (cmd.is_a? BlockCommand)
 
-    v = command_obj.run
+    v = run_command(cmd)
 
-    context.command_stack.pop if (command_obj.is_a? BlockCommand)
+    context.command_stack.pop if (cmd.is_a? BlockCommand)
     v
   end
 
