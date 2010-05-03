@@ -119,16 +119,6 @@ end
 # use the commands to make the DSL
 module WebServiceLanguage
   Blox::create_language(self, WebServiceCommands)
-  
-  # Override blox's class-local context and use thread-local context
-  # instead
-  def blox_get_context
-    unless Thread.current[:context]
-      puts "Creating thread-local context for thread #{Thread.current.inspect}"
-      Thread.current[:context] = Blox::Context.new
-    end
-    Thread.current[:context]
-  end
 end
 
 # dump the language into this namespace

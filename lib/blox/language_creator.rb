@@ -67,17 +67,17 @@ EOF
   end
 
   #
-  # Create a simple context accessor; this one isn't threadsafe
+  # Create a simple context accessor
   #
   def create_context_accessor(target_module)
-    # This puts the context in the instance of the class that the
-    # language module is included into
+    # Using thread local storage until I think of something better...
     target_module.module_eval do
       def blox_get_context
-        if not defined? @blox_context
-          @blox_context = Context.new
+        unless Thread.current[:context]
+          #puts "Creating thread-local context for thread #{Thread.current.inspect}"
+          Thread.current[:context] = Context.new
         end
-        @blox_context
+        Thread.current[:context]
       end
     end
   end
