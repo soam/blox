@@ -91,7 +91,7 @@ EOF
       m = command_module.to_s + "::" + c
       o = eval(m)
       if (o.is_a? Class and o < Command)
-        command_classes << m
+        command_classes << o
       elsif o.is_a? Module
         command_classes.concat get_command_classes(o)
       end
@@ -104,7 +104,11 @@ EOF
   # module qualifiers and convert CamelCase to underscore_style
   #
   def default_name_func(klass)
-    klass.to_s.split("::").last.gsub(/([a-z0-9])([A-Z])/, '\1_\2').downcase
+    if (klass.respond_to? :command_name)
+      klass.method(:command_name).call
+    else
+      klass.to_s.split("::").last.gsub(/([a-z0-9])([A-Z])/, '\1_\2').downcase
+    end
   end
 
   # Set the name func; used to translate the fully qualified class

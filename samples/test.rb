@@ -29,6 +29,15 @@ module TestCommands
     end
   end
 
+  class Quux < Blox::Command
+    def self.command_name
+      "pfooey"
+    end
+    def visit 
+      puts "pfooey"
+    end
+  end
+
 end
 
 
@@ -49,6 +58,8 @@ class TestUser
         baz 1,2,3 do |x|
           puts "x = #{x}"
         end
+        
+        pfooey
       }
     }
   end
