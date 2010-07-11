@@ -35,8 +35,10 @@ class Test
         b {
           c
         }
-        a {
-          c
+        3.times {
+          a {
+            c
+          }
         }
       }
       a {
