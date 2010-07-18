@@ -90,8 +90,10 @@ EOF
     command_module.constants.each { |c| 
       m = command_module.to_s + "::" + c
       o = eval(m)
-      if (o.is_a? Class and o < Command)
-        command_classes << o
+      if (o.is_a? Class)
+        if (o < Command)
+          command_classes << o
+        end
       elsif o.is_a? Module
         command_classes.concat get_command_classes(o)
       end
